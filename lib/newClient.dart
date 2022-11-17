@@ -78,12 +78,9 @@ class _NewClientState extends State<NewClient> {
                   // ),
                   ),
               //CONTAINTER LABEL
+            
               Container(
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                child: Text(lblCedula),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
                   keyboardType: TextInputType.number,
                   controller: _cedulaController,
@@ -93,12 +90,9 @@ class _NewClientState extends State<NewClient> {
                   ),
                 ),
               ),
+            
               Container(
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                child: Text(lblFirstName),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
                   controller: _firsNameController,
                   decoration: InputDecoration(
@@ -108,14 +102,10 @@ class _NewClientState extends State<NewClient> {
                 ),
               ),
               //CONTAINTER LABEL
+            
               Container(
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                child: Text(lblLastName),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
-                  obscureText: true,
                   controller: _lastNameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -124,14 +114,10 @@ class _NewClientState extends State<NewClient> {
                 ),
               ),
               //CONTAINTER LABEL
+              
               Container(
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                child: Text(lblFechaNacimiento),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
-                  obscureText: true,
                   controller: _fechaNacimientoController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -141,14 +127,10 @@ class _NewClientState extends State<NewClient> {
               ),
 
               //CONTAINTER LABEL
+              
               Container(
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                child: Text(lblSexo),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                padding:const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
-                  obscureText: true,
                   controller: _sexoControlller,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -156,14 +138,10 @@ class _NewClientState extends State<NewClient> {
                   ),
                 ),
               ), //CONTAINTER LABEL
+            
               Container(
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                child: Text(lblTipo),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
-                  obscureText: true,
                   controller: _tipoController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -171,14 +149,10 @@ class _NewClientState extends State<NewClient> {
                   ),
                 ),
               ),
+          
               Container(
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                child: Text(lblUsuario),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
-                  obscureText: true,
                   controller: _usuarioController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -188,11 +162,10 @@ class _NewClientState extends State<NewClient> {
               ),
               // BUTTON
               Container(
-                  height: 50,
-                  margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
-                  padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+                  height: 70,
+                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                   child: ElevatedButton(
-                      child: const Text('REGISTRARSE'),
+                      child: const Text('Agregar Cliente'),
                       onPressed: () async {
                         final int? cedula =
                             int.tryParse(_cedulaController.text);
