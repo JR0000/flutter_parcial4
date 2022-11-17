@@ -1,3 +1,6 @@
+import 'dart:html';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 String titulo = "Agregar Cliente";
@@ -5,16 +8,18 @@ String titulo = "Agregar Cliente";
 String lblCedula = "Cedula";
 String lblFirstName = "Nombre";
 String lblLastName = "Apellido";
-String lblTelefono = "Telefono";
 String lblFechaNacimiento = "Fecha nacimiento";
 String lblSexo = "Sexo";
 String lblTipo = "Tipo";
 String lblUsuario = "Usuario";
 
-TextEditingController firstName = TextEditingController();
-TextEditingController lastName = TextEditingController();
-TextEditingController email = TextEditingController();
-TextEditingController telefono = TextEditingController();
+TextEditingController _cedulaController = TextEditingController();
+TextEditingController _firsNameController = TextEditingController();
+TextEditingController _lastNameController = TextEditingController();
+TextEditingController _fechaNacimientoController = TextEditingController();
+TextEditingController _sexoControlller = TextEditingController();
+TextEditingController _tipoController = TextEditingController();
+TextEditingController _usuarioController = TextEditingController();
 
 class NewClient extends StatefulWidget {
   const NewClient({Key? key}) : super(key: key);
@@ -24,6 +29,8 @@ class NewClient extends StatefulWidget {
 }
 
 class _NewClientState extends State<NewClient> {
+  final CollectionReference _clientes =
+      FirebaseFirestore.instance.collection("clientes");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +87,8 @@ class _NewClientState extends State<NewClient> {
               Container(
                 padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
                 child: TextField(
-                  controller: firstName,
+                  keyboardType: TextInputType.number,
+                  controller: _cedulaController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: lblCedula,
@@ -94,7 +102,7 @@ class _NewClientState extends State<NewClient> {
               Container(
                 padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
                 child: TextField(
-                  controller: firstName,
+                  controller: _firsNameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: lblFirstName,
@@ -110,7 +118,7 @@ class _NewClientState extends State<NewClient> {
                 padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
                 child: TextField(
                   obscureText: true,
-                  controller: lastName,
+                  controller: _lastNameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: lblLastName,
@@ -126,26 +134,10 @@ class _NewClientState extends State<NewClient> {
                 padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
                 child: TextField(
                   obscureText: true,
-                  controller: telefono,
+                  controller: _fechaNacimientoController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: lblFechaNacimiento,
-                  ),
-                ),
-              ),
-              //CONTAINTER LABEL
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-                child: Text(lblTelefono),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                child: TextField(
-                  obscureText: true,
-                  controller: telefono,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: lblTelefono,
                   ),
                 ),
               ),
@@ -159,7 +151,7 @@ class _NewClientState extends State<NewClient> {
                 padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
                 child: TextField(
                   obscureText: true,
-                  controller: telefono,
+                  controller: _sexoControlller,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: lblSexo,
@@ -174,7 +166,7 @@ class _NewClientState extends State<NewClient> {
                 padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
                 child: TextField(
                   obscureText: true,
-                  controller: telefono,
+                  controller: _tipoController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: lblTipo,
@@ -189,7 +181,7 @@ class _NewClientState extends State<NewClient> {
                 padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
                 child: TextField(
                   obscureText: true,
-                  controller: telefono,
+                  controller: _usuarioController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: lblUsuario,
@@ -202,11 +194,36 @@ class _NewClientState extends State<NewClient> {
                   margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
                   padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
                   child: ElevatedButton(
-                    child: const Text('REGISTRARSE'),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  )),
+                      child: const Text('REGISTRARSE'),
+                      onPressed: () async {
+                        final int? cedula =
+                            int.tryParse(_cedulaController.text);
+                        final String nombre = _firsNameController.text;
+                        final String apellido = _lastNameController.text;
+                        final String fechaNacimiento =
+                            _fechaNacimientoController.text;
+                        final String sexo = _sexoControlller.text;
+                        final String tipo = _tipoController.text;
+                        final String usuario = _usuarioController.text;
+                        if (cedula != null &&
+                            nombre != null &&
+                            apellido != null &&
+                            fechaNacimiento != null &&
+                            sexo != null &&
+                            tipo != null &&
+                            usuario != null) {
+                          await _clientes.add({
+                            "cedula": cedula,
+                            "nombre": nombre,
+                            "apellido": apellido,
+                            "fecha_nacimiento": fechaNacimiento,
+                            "sexo": sexo,
+                            "tipo": tipo,
+                            "usuario": usuario
+                          });
+                          Navigator.pop(context);
+                        }
+                      })),
             ],
           ),
         ),
