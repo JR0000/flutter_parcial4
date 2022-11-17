@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-String titulo = "Agregar Cliente";
+String titulo = "Actualizar Cliente";
 
 String lblCedula = "Cedula";
 String lblFirstName = "Nombre";
@@ -19,18 +19,45 @@ TextEditingController _sexoControlller = TextEditingController();
 TextEditingController _tipoController = TextEditingController();
 TextEditingController _usuarioController = TextEditingController();
 
-class NewClient extends StatefulWidget {
-  const NewClient({Key? key}) : super(key: key);
+class UpdateClient extends StatefulWidget {
+  final dynamic documentSnapshot;
+  const UpdateClient({Key? key, required this.documentSnapshot})
+      : super(key: key);
 
   @override
-  State<NewClient> createState() => _NewClientState();
+  State<UpdateClient> createState() => _UpdateClientState();
 }
 
-class _NewClientState extends State<NewClient> {
-  final CollectionReference _clientes =
-      FirebaseFirestore.instance.collection("clientes");
+class _UpdateClientState extends State<UpdateClient> {
+  final _clientes = FirebaseFirestore.instance.collection("clientes");
   @override
   Widget build(BuildContext context) {
+    _clientes.doc(widget.documentSnapshot.id.toString()).get();
+
+    TextEditingController _cedulaController = TextEditingController(
+        text: widget.documentSnapshot['cedula'].toString());
+    TextEditingController _firsNameController =
+        TextEditingController(text: widget.documentSnapshot['nombre']);
+    TextEditingController _lastNameController =
+        TextEditingController(text: widget.documentSnapshot['apellido']);
+    TextEditingController _fechaNacimientoController = TextEditingController(
+        text: widget.documentSnapshot['fecha_nacimiento']);
+    TextEditingController _sexoControlller =
+        TextEditingController(text: widget.documentSnapshot['sexo']);
+    TextEditingController _tipoController =
+        TextEditingController(text: widget.documentSnapshot['tipo']);
+    TextEditingController _usuarioController =
+        TextEditingController(text: widget.documentSnapshot['usuario']);
+
+    // _cedulaController.text = widget.documentSnapshot['cedula'].toString();
+    // _firsNameController.text = widget.documentSnapshot['nombre'];
+    // _lastNameController.text = widget.documentSnapshot['apellido'];
+    // _fechaNacimientoController.text =
+    //     widget.documentSnapshot['fecha_nacimiento'];
+    // _sexoControlller.text = widget.documentSnapshot['sexo'];
+    // _tipoController.text = widget.documentSnapshot['tipo'];
+    // _usuarioController.text = widget.documentSnapshot['usuario'];
+
     return Scaffold(
       appBar: AppBar(),
       body: Container(
@@ -84,6 +111,7 @@ class _NewClientState extends State<NewClient> {
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
                   keyboardType: TextInputType.number,
+                  onChanged: (value) => _cedulaController.text = value,
                   controller: _cedulaController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -96,6 +124,7 @@ class _NewClientState extends State<NewClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
+                  onChanged: (value) => _firsNameController.text = value,
                   controller: _firsNameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -109,6 +138,7 @@ class _NewClientState extends State<NewClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
+                  onChanged: (value) => _lastNameController.text = value,
                   controller: _lastNameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -122,6 +152,7 @@ class _NewClientState extends State<NewClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
+                  onChanged: (value) => _fechaNacimientoController.text = value,
                   controller: _fechaNacimientoController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -136,6 +167,7 @@ class _NewClientState extends State<NewClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
+                  onChanged: (value) => _sexoControlller.text = value,
                   controller: _sexoControlller,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -148,6 +180,7 @@ class _NewClientState extends State<NewClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
+                  onChanged: (value) => _tipoController.text = value,
                   controller: _tipoController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -160,6 +193,7 @@ class _NewClientState extends State<NewClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
+                  onChanged: (value) => _usuarioController.text = value,
                   controller: _usuarioController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -173,7 +207,7 @@ class _NewClientState extends State<NewClient> {
                   padding:
                       const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                   child: ElevatedButton(
-                      child: const Text('Agregar Cliente'),
+                      child: const Text('Actualizar Cliente'),
                       onPressed: () async {
                         final int? cedula =
                             int.tryParse(_cedulaController.text);
@@ -191,7 +225,12 @@ class _NewClientState extends State<NewClient> {
                             sexo != null &&
                             tipo != null &&
                             usuario != null) {
-                          await _clientes.add({
+                          debugPrint("Dentro del if");
+                          debugPrint(
+                              "$cedula-$nombre-$apellido-$fechaNacimiento-$sexo-$tipo-$usuario");
+                          await _clientes
+                              .doc(widget.documentSnapshot.id)
+                              .update({
                             "cedula": cedula,
                             "nombre": nombre,
                             "apellido": apellido,
@@ -200,7 +239,7 @@ class _NewClientState extends State<NewClient> {
                             "tipo": tipo,
                             "usuario": usuario
                           });
-                          Navigator.pop(context);
+                          //Navigator.pop(context);
                         }
                       })),
             ],
