@@ -103,6 +103,7 @@ class _NewClientState extends State<NewClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
+                  
                   controller: _fechaNacimientoController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:parcial4/newClient.dart';
@@ -137,22 +138,31 @@ class _Home extends State<Home> {
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
+          contentPadding: EdgeInsetsDirectional.zero,
+          titlePadding: EdgeInsets.all(3),
+          elevation: 2,
           title: Text("Datos Cliente: "),
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-              child: TextField(
-                controller: _cedulaController,
-                enabled: false,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Cedula",
-                ),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: _cedulaController,
+                    enabled: false,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Cedula",
+                    ),
+                  ),
+                ],
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+              height: 70,
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: TextField(
                 controller: _firsNameController,
                 enabled: false,
@@ -163,7 +173,8 @@ class _Home extends State<Home> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+              height: 70,
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: TextField(
                 controller: _lastNameController,
                 enabled: false,
@@ -174,7 +185,8 @@ class _Home extends State<Home> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+              height: 70,
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: TextField(
                 controller: _fechaNacimientoController,
                 enabled: false,
@@ -185,7 +197,8 @@ class _Home extends State<Home> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+              height: 70,
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: TextField(
                 controller: _sexoControlller,
                 enabled: false,
@@ -196,7 +209,8 @@ class _Home extends State<Home> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+              height: 70,
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: TextField(
                 controller: _tipoController,
                 enabled: false,
@@ -207,7 +221,8 @@ class _Home extends State<Home> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+              height: 70,
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: TextField(
                 controller: _usuarioController,
                 enabled: false,
@@ -217,6 +232,13 @@ class _Home extends State<Home> {
                 ),
               ),
             ),
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.arrow_back),
+              color: Colors.red,
+            )
           ],
         );
       },
