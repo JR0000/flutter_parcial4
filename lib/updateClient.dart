@@ -21,8 +21,7 @@ TextEditingController _usuarioController = TextEditingController();
 
 class UpdateClient extends StatefulWidget {
   final dynamic documentSnapshot;
-  const UpdateClient({Key? key, required this.documentSnapshot})
-      : super(key: key);
+  const UpdateClient({Key? key, this.documentSnapshot}) : super(key: key);
 
   @override
   State<UpdateClient> createState() => _UpdateClientState();
@@ -30,34 +29,52 @@ class UpdateClient extends StatefulWidget {
 
 class _UpdateClientState extends State<UpdateClient> {
   final _clientes = FirebaseFirestore.instance.collection("clientes");
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    // TODO: implement initState
     _clientes.doc(widget.documentSnapshot.id.toString()).get();
 
-    TextEditingController _cedulaController = TextEditingController(
-        text: widget.documentSnapshot['cedula'].toString());
-    TextEditingController _firsNameController =
-        TextEditingController(text: widget.documentSnapshot['nombre']);
-    TextEditingController _lastNameController =
-        TextEditingController(text: widget.documentSnapshot['apellido']);
-    TextEditingController _fechaNacimientoController = TextEditingController(
-        text: widget.documentSnapshot['fecha_nacimiento']);
-    TextEditingController _sexoControlller =
-        TextEditingController(text: widget.documentSnapshot['sexo']);
-    TextEditingController _tipoController =
-        TextEditingController(text: widget.documentSnapshot['tipo']);
-    TextEditingController _usuarioController =
-        TextEditingController(text: widget.documentSnapshot['usuario']);
+    _cedulaController = TextEditingController.fromValue(TextEditingValue(
+        text: widget.documentSnapshot['cedula'].toString(),
+        selection: TextSelection.fromPosition(TextPosition(
+            offset: widget.documentSnapshot['cedula'].toString().length))));
 
-    // _cedulaController.text = widget.documentSnapshot['cedula'].toString();
-    // _firsNameController.text = widget.documentSnapshot['nombre'];
-    // _lastNameController.text = widget.documentSnapshot['apellido'];
-    // _fechaNacimientoController.text =
-    //     widget.documentSnapshot['fecha_nacimiento'];
-    // _sexoControlller.text = widget.documentSnapshot['sexo'];
-    // _tipoController.text = widget.documentSnapshot['tipo'];
-    // _usuarioController.text = widget.documentSnapshot['usuario'];
+    _firsNameController = TextEditingController.fromValue(TextEditingValue(
+        text: widget.documentSnapshot['nombre'],
+        selection: TextSelection.fromPosition(
+            TextPosition(offset: widget.documentSnapshot['nombre'].length))));
 
+    _lastNameController = TextEditingController.fromValue(TextEditingValue(
+        text: widget.documentSnapshot['apellido'],
+        selection: TextSelection.fromPosition(
+            TextPosition(offset: widget.documentSnapshot['apellido'].length))));
+
+    _fechaNacimientoController = TextEditingController.fromValue(
+        TextEditingValue(
+            text: widget.documentSnapshot['fecha_nacimiento'],
+            selection: TextSelection.fromPosition(TextPosition(
+                offset: widget.documentSnapshot['fecha_nacimiento'].length))));
+
+    _sexoControlller = TextEditingController.fromValue(TextEditingValue(
+        text: widget.documentSnapshot['sexo'],
+        selection: TextSelection.fromPosition(
+            TextPosition(offset: widget.documentSnapshot['sexo'].length))));
+
+    _tipoController = TextEditingController.fromValue(TextEditingValue(
+        text: widget.documentSnapshot['tipo'],
+        selection: TextSelection.fromPosition(
+            TextPosition(offset: widget.documentSnapshot['tipo'].length))));
+
+    _usuarioController = TextEditingController.fromValue(TextEditingValue(
+        text: widget.documentSnapshot['usuario'],
+        selection: TextSelection.fromPosition(
+            TextPosition(offset: widget.documentSnapshot['usuario'].length))));
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
@@ -111,7 +128,14 @@ class _UpdateClientState extends State<UpdateClient> {
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
                   keyboardType: TextInputType.number,
-                  onChanged: (value) => _cedulaController.text = value,
+                  onChanged: (value) {
+                    //_firsNameController.text = value;
+                    _cedulaController.value = TextEditingValue(
+                      text: value,
+                      selection: TextSelection.fromPosition(
+                          TextPosition(offset: value.length)),
+                    );
+                  },
                   controller: _cedulaController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -124,7 +148,14 @@ class _UpdateClientState extends State<UpdateClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
-                  onChanged: (value) => _firsNameController.text = value,
+                  onChanged: (value) {
+                    //_firsNameController.text = value;
+                    _firsNameController.value = TextEditingValue(
+                      text: value,
+                      selection: TextSelection.fromPosition(
+                          TextPosition(offset: value.length)),
+                    );
+                  },
                   controller: _firsNameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -138,7 +169,14 @@ class _UpdateClientState extends State<UpdateClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
-                  onChanged: (value) => _lastNameController.text = value,
+                  onChanged: (value) {
+                    //_firsNameController.text = value;
+                    _lastNameController.value = TextEditingValue(
+                      text: value,
+                      selection: TextSelection.fromPosition(
+                          TextPosition(offset: value.length)),
+                    );
+                  },
                   controller: _lastNameController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -152,7 +190,14 @@ class _UpdateClientState extends State<UpdateClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
-                  onChanged: (value) => _fechaNacimientoController.text = value,
+                  onChanged: (value) {
+                    //_firsNameController.text = value;
+                    _fechaNacimientoController.value = TextEditingValue(
+                      text: value,
+                      selection: TextSelection.fromPosition(
+                          TextPosition(offset: value.length)),
+                    );
+                  },
                   controller: _fechaNacimientoController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -167,7 +212,14 @@ class _UpdateClientState extends State<UpdateClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
-                  onChanged: (value) => _sexoControlller.text = value,
+                  onChanged: (value) {
+                    //_firsNameController.text = value;
+                    _sexoControlller.value = TextEditingValue(
+                      text: value,
+                      selection: TextSelection.fromPosition(
+                          TextPosition(offset: value.length)),
+                    );
+                  },
                   controller: _sexoControlller,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -180,7 +232,14 @@ class _UpdateClientState extends State<UpdateClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
-                  onChanged: (value) => _tipoController.text = value,
+                  onChanged: (value) {
+                    //_firsNameController.text = value;
+                    _tipoController.value = TextEditingValue(
+                      text: value,
+                      selection: TextSelection.fromPosition(
+                          TextPosition(offset: value.length)),
+                    );
+                  },
                   controller: _tipoController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -193,7 +252,14 @@ class _UpdateClientState extends State<UpdateClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
-                  onChanged: (value) => _usuarioController.text = value,
+                  onChanged: (value) {
+                    //_firsNameController.text = value;
+                    _usuarioController.value = TextEditingValue(
+                      text: value,
+                      selection: TextSelection.fromPosition(
+                          TextPosition(offset: value.length)),
+                    );
+                  },
                   controller: _usuarioController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
