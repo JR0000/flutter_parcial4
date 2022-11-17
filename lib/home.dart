@@ -91,7 +91,9 @@ class _Home extends State<Home> {
 
   Future<void> _update([DocumentSnapshot? documentSnapshot]) async {}
   Future<void> _create([DocumentSnapshot? documentSnapshot]) async {}
-  Future<void> _delete(String productId) async {}
+  Future<void> _delete(String clientesId) async {
+    await _clientes.doc(clientesId).delete();
+  }
 
   CollectionReference _collectionRef =
       FirebaseFirestore.instance.collection('collection');
