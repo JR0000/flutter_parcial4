@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:parcial4/newClient.dart';
+import 'package:parcial4/services/catalogos.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -28,12 +29,13 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     print("Inicio **************************");
-    getDataAvion();
-    getDataDestinos();
-    getDataHorarios();
-    getDataHorarios();
-    getDataReservas();
-    getDataReservas();
+    Catalogos catalogos = new Catalogos();
+    catalogos.getDataAvion();
+    catalogos.getDataDestinos();
+    catalogos.getDataHorarios();
+    catalogos.getDataHorarios();
+    catalogos.getDataReservas();
+    catalogos.getDataReservas();
     return Scaffold(
         appBar: AppBar(
           title: const Center(child: Text('Parcial 4')),
@@ -92,53 +94,4 @@ class _Home extends State<Home> {
   Future<void> _update([DocumentSnapshot? documentSnapshot]) async {}
   Future<void> _create([DocumentSnapshot? documentSnapshot]) async {}
   Future<void> _delete(String productId) async {}
-
-  CollectionReference _collectionRef =
-      FirebaseFirestore.instance.collection('collection');
-
-  // CATALOGOS
-  Future<List> getDataAvion() async {
-    // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _avion.get();
-    // Get data from docs and convert map to List
-    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    print(allData);
-    return allData;
-  }
-
-  Future<List> getDataDestinos() async {
-    // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _destinos.get();
-    // Get data from docs and convert map to List
-    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    print(allData);
-    return allData;
-  }
-
-  Future<List> getDataHorarios() async {
-    // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _horarios.get();
-    // Get data from docs and convert map to List
-    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    print(allData);
-    return allData;
-  }
-
-  Future<List> getDataReservas() async {
-    // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _reservas.get();
-    // Get data from docs and convert map to List
-    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    print(allData);
-    return allData;
-  }
-
-  Future<List> getDataVuelos() async {
-    // Get docs from collection reference
-    QuerySnapshot querySnapshot = await _vuelos.get();
-    // Get data from docs and convert map to List
-    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    print(allData);
-    return allData;
-  }
 }
