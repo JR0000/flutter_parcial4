@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:parcial4/newClient.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -62,7 +63,12 @@ class _Home extends State<Home> {
         ),
 // agregar productos
         floatingActionButton: FloatingActionButton(
-          onPressed: () => _create(),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const NewClient()),
+            );
+          },
           child: const Icon(Icons.add),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
