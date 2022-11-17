@@ -16,16 +16,6 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   final CollectionReference _clientes =
       FirebaseFirestore.instance.collection('clientes');
-  final CollectionReference _avion =
-      FirebaseFirestore.instance.collection('avion');
-  final CollectionReference _destinos =
-      FirebaseFirestore.instance.collection('destinos');
-  final CollectionReference _horarios =
-      FirebaseFirestore.instance.collection('horarios');
-  final CollectionReference _reservas =
-      FirebaseFirestore.instance.collection('reservas');
-  final CollectionReference _vuelos =
-      FirebaseFirestore.instance.collection('vuerlos');
   @override
   Widget build(BuildContext context) {
     print("Inicio **************************");
@@ -92,7 +82,6 @@ class _Home extends State<Home> {
   }
 
   Future<void> _update([DocumentSnapshot? documentSnapshot]) async {}
-  Future<void> _create([DocumentSnapshot? documentSnapshot]) async {}
   Future<void> _delete(String clientesId) async {
     await _clientes.doc(clientesId).delete();
   }
