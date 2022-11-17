@@ -163,7 +163,6 @@ class _UpdateClientState extends State<UpdateClient> {
                   ),
                 ),
               ),
-              //CONTAINTER LABEL
 
               Container(
                 padding:
@@ -305,7 +304,13 @@ class _UpdateClientState extends State<UpdateClient> {
                             "tipo": tipo,
                             "usuario": usuario
                           });
-                          //Navigator.pop(context);
+                          Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              duration: Duration(seconds: 3),
+                              content: Text("Cliente Actualizado"),
+                            ),
+                          );
                         }
                       })),
             ],

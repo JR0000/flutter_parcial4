@@ -58,26 +58,9 @@ class _NewClientState extends State<NewClient> {
                         padding: const EdgeInsets.all(0),
                         alignment: Alignment.centerRight,
                         width: MediaQuery.of(context).size.width / 5,
-                        // // decoration: borderBlack(),
-                        // child: Container(
-                        //   height: 50,
-                        //   decoration: BoxDecoration(
-                        //     borderRadius:
-                        //         BorderRadius.all(Radius.circular(20.0)),
-                        //     image: DecorationImage(
-                        //       image: ExactAssetImage('assets/img/user.png'),
-                        //     ),
-                        //   ),
-                        // ))
                       )
                     ],
-                  )
-                  // Text(
-                  //   titulo,
-                  //   style: TextStyle(fontSize: 24),
-                  // ),
-                  ),
-              //CONTAINTER LABEL
+                  )),
 
               Container(
                 padding:
@@ -103,7 +86,6 @@ class _NewClientState extends State<NewClient> {
                   ),
                 ),
               ),
-              //CONTAINTER LABEL
 
               Container(
                 padding:
@@ -116,7 +98,6 @@ class _NewClientState extends State<NewClient> {
                   ),
                 ),
               ),
-              //CONTAINTER LABEL
 
               Container(
                 padding:
@@ -130,8 +111,6 @@ class _NewClientState extends State<NewClient> {
                 ),
               ),
 
-              //CONTAINTER LABEL
-
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
@@ -142,7 +121,7 @@ class _NewClientState extends State<NewClient> {
                     labelText: lblSexo,
                   ),
                 ),
-              ), //CONTAINTER LABEL
+              ),
 
               Container(
                 padding:
@@ -201,6 +180,10 @@ class _NewClientState extends State<NewClient> {
                             "usuario": usuario
                           });
                           Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  duration: Duration(seconds: 3),
+                                  content: Text("Cliente Agregado")));
                         }
                       })),
             ],
