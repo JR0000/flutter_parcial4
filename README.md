@@ -1,16 +1,11 @@
-# parcial4
+# Parcial#4
 
-A new Flutter project.
+Tema: Flip Animations
 
-## Getting Started
+Librerías empleadas: 
+- Page Flip Builder
+- Flip Board
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Estudiantes:
+- Ayala Ayala, Gerson David 25-0900-2018
+- Rojas Guido, Jonathan Orlando 25-4763-2016
