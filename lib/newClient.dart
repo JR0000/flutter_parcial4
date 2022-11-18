@@ -18,7 +18,6 @@ TextEditingController _lastNameController = TextEditingController();
 TextEditingController _fechaNacimientoController = TextEditingController();
 SingleValueDropDownController _sexoControlller =
     SingleValueDropDownController();
-String sexoValue = "";
 TextEditingController _tipoController = TextEditingController();
 TextEditingController _usuarioController = TextEditingController();
 
