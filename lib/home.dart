@@ -52,7 +52,7 @@ class _Home extends State<Home> {
                     margin: const EdgeInsets.all(10),
                     child: ListTile(
                       title: Text(documentSnapshot['cedula'].toString()),
-                      subtitle: Text(documentSnapshot['cedula'].toString()),
+                      subtitle: Text(documentSnapshot['nombre'].toString()),
                       trailing: SizedBox(
                         width: 150,
                         child: Row(
