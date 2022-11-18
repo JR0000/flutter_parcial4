@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 
 String titulo = "Actualizar Cliente";
@@ -15,7 +16,8 @@ TextEditingController _cedulaController = TextEditingController();
 TextEditingController _firsNameController = TextEditingController();
 TextEditingController _lastNameController = TextEditingController();
 TextEditingController _fechaNacimientoController = TextEditingController();
-TextEditingController _sexoControlller = TextEditingController();
+SingleValueDropDownController _sexoControlller =
+    SingleValueDropDownController();
 TextEditingController _tipoController = TextEditingController();
 TextEditingController _usuarioController = TextEditingController();
 
@@ -49,17 +51,15 @@ class _UpdateClientState extends State<UpdateClient> {
         text: widget.documentSnapshot['apellido'],
         selection: TextSelection.fromPosition(
             TextPosition(offset: widget.documentSnapshot['apellido'].length))));
-
+    _sexoControlller = SingleValueDropDownController(
+        data: DropDownValueModel(
+            name: widget.documentSnapshot['sexo'],
+            value: widget.documentSnapshot['sexo']));
     _fechaNacimientoController = TextEditingController.fromValue(
         TextEditingValue(
             text: widget.documentSnapshot['fecha_nacimiento'],
             selection: TextSelection.fromPosition(TextPosition(
                 offset: widget.documentSnapshot['fecha_nacimiento'].length))));
-
-    _sexoControlller = TextEditingController.fromValue(TextEditingValue(
-        text: widget.documentSnapshot['sexo'],
-        selection: TextSelection.fromPosition(
-            TextPosition(offset: widget.documentSnapshot['sexo'].length))));
 
     _tipoController = TextEditingController.fromValue(TextEditingValue(
         text: widget.documentSnapshot['tipo'],
@@ -84,43 +84,28 @@ class _UpdateClientState extends State<UpdateClient> {
           child: ListView(
             children: <Widget>[
               Container(
-                  height: 70,
-                  margin: const EdgeInsets.fromLTRB(15, 2, 15, 10),
-                  padding: const EdgeInsets.all(0),
-                  // decoration: borderBlack(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                          margin: const EdgeInsets.all(0),
-                          padding: const EdgeInsets.all(0),
-                          width: MediaQuery.of(context).size.width / 2.1,
-                          // decoration: borderBlack(),
-                          child: Text(titulo, style: TextStyle(fontSize: 24))),
-                      Container(
+                height: 70,
+                margin: const EdgeInsets.fromLTRB(15, 2, 15, 10),
+                padding: const EdgeInsets.all(0),
+                // decoration: borderBlack(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
                         margin: const EdgeInsets.all(0),
                         padding: const EdgeInsets.all(0),
-                        alignment: Alignment.centerRight,
-                        width: MediaQuery.of(context).size.width / 5,
-                        // // decoration: borderBlack(),
-                        // child: Container(
-                        //   height: 50,
-                        //   decoration: BoxDecoration(
-                        //     borderRadius:
-                        //         BorderRadius.all(Radius.circular(20.0)),
-                        //     image: DecorationImage(
-                        //       image: ExactAssetImage('assets/img/user.png'),
-                        //     ),
-                        //   ),
-                        // ))
-                      )
-                    ],
-                  )
-                  // Text(
-                  //   titulo,
-                  //   style: TextStyle(fontSize: 24),
-                  // ),
-                  ),
+                        width: MediaQuery.of(context).size.width / 2.1,
+                        // decoration: borderBlack(),
+                        child: Text(titulo, style: TextStyle(fontSize: 24))),
+                    Container(
+                      margin: const EdgeInsets.all(0),
+                      padding: const EdgeInsets.all(0),
+                      alignment: Alignment.centerRight,
+                      width: MediaQuery.of(context).size.width / 5,
+                    )
+                  ],
+                ),
+              ),
               //CONTAINTER LABEL
 
               Container(
@@ -129,7 +114,6 @@ class _UpdateClientState extends State<UpdateClient> {
                 child: TextField(
                   keyboardType: TextInputType.number,
                   onChanged: (value) {
-                    //_firsNameController.text = value;
                     _cedulaController.value = TextEditingValue(
                       text: value,
                       selection: TextSelection.fromPosition(
@@ -149,7 +133,6 @@ class _UpdateClientState extends State<UpdateClient> {
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
                   onChanged: (value) {
-                    //_firsNameController.text = value;
                     _firsNameController.value = TextEditingValue(
                       text: value,
                       selection: TextSelection.fromPosition(
@@ -169,7 +152,6 @@ class _UpdateClientState extends State<UpdateClient> {
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
                   onChanged: (value) {
-                    //_firsNameController.text = value;
                     _lastNameController.value = TextEditingValue(
                       text: value,
                       selection: TextSelection.fromPosition(
@@ -189,8 +171,8 @@ class _UpdateClientState extends State<UpdateClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
+                  keyboardType: TextInputType.datetime,
                   onChanged: (value) {
-                    //_firsNameController.text = value;
                     _fechaNacimientoController.value = TextEditingValue(
                       text: value,
                       selection: TextSelection.fromPosition(
@@ -207,32 +189,37 @@ class _UpdateClientState extends State<UpdateClient> {
 
               //CONTAINTER LABEL
 
+              //CONTAINTER LABEL
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                child: TextField(
-                  onChanged: (value) {
-                    //_firsNameController.text = value;
-                    _sexoControlller.value = TextEditingValue(
-                      text: value,
-                      selection: TextSelection.fromPosition(
-                          TextPosition(offset: value.length)),
-                    );
+                child: DropDownTextField(
+                  // initialValue: widget.documentSnapshot['sexo'],
+                  dropDownItemCount: 3,
+                  dropDownList: [
+                    DropDownValueModel(name: "Hombre", value: "Hombre"),
+                    DropDownValueModel(name: "Mujer", value: "Mujer")
+                  ],
+                  validator: (value) {
+                    if (value == null) {
+                      return "required field";
+                    } else {
+                      return null;
+                    }
                   },
                   controller: _sexoControlller,
-                  decoration: InputDecoration(
+                  textFieldDecoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: lblSexo,
                   ),
                 ),
-              ), //CONTAINTER LABEL
+              ),
 
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
                   onChanged: (value) {
-                    //_firsNameController.text = value;
                     _tipoController.value = TextEditingValue(
                       text: value,
                       selection: TextSelection.fromPosition(
@@ -252,7 +239,6 @@ class _UpdateClientState extends State<UpdateClient> {
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
                   onChanged: (value) {
-                    //_firsNameController.text = value;
                     _usuarioController.value = TextEditingValue(
                       text: value,
                       selection: TextSelection.fromPosition(
@@ -280,7 +266,8 @@ class _UpdateClientState extends State<UpdateClient> {
                         final String apellido = _lastNameController.text;
                         final String fechaNacimiento =
                             _fechaNacimientoController.text;
-                        final String sexo = _sexoControlller.text;
+                        final String sexo =
+                            _sexoControlller.dropDownValue?.value;
                         final String tipo = _tipoController.text;
                         final String usuario = _usuarioController.text;
                         if (cedula != null &&
