@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 
 String titulo = "Agregar Cliente";
@@ -15,7 +16,9 @@ TextEditingController _cedulaController = TextEditingController();
 TextEditingController _firsNameController = TextEditingController();
 TextEditingController _lastNameController = TextEditingController();
 TextEditingController _fechaNacimientoController = TextEditingController();
-TextEditingController _sexoControlller = TextEditingController();
+SingleValueDropDownController _sexoControlller =
+    SingleValueDropDownController();
+String sexoValue = "";
 TextEditingController _tipoController = TextEditingController();
 TextEditingController _usuarioController = TextEditingController();
 
@@ -103,7 +106,7 @@ class _NewClientState extends State<NewClient> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                 child: TextField(
-                  
+                  keyboardType: TextInputType.datetime,
                   controller: _fechaNacimientoController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -112,18 +115,30 @@ class _NewClientState extends State<NewClient> {
                 ),
               ),
 
+            
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-                child: TextField(
+                child: DropDownTextField(
+                  dropDownItemCount: 3,
+                  dropDownList: [
+                    DropDownValueModel(name: "Hombre", value: "Hombre"),
+                    DropDownValueModel(name: "Mujer", value: "Mujer")
+                  ],
+                  validator: (value) {
+                    if (value == null) {
+                      return "required field";
+                    } else {
+                      return null;
+                    }
+                  },
                   controller: _sexoControlller,
-                  decoration: InputDecoration(
+                  textFieldDecoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: lblSexo,
                   ),
                 ),
               ),
-
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
@@ -161,7 +176,8 @@ class _NewClientState extends State<NewClient> {
                         final String apellido = _lastNameController.text;
                         final String fechaNacimiento =
                             _fechaNacimientoController.text;
-                        final String sexo = _sexoControlller.text;
+                        final String sexo =
+                            _sexoControlller.dropDownValue?.value;
                         final String tipo = _tipoController.text;
                         final String usuario = _usuarioController.text;
                         if (cedula != null &&
@@ -171,6 +187,8 @@ class _NewClientState extends State<NewClient> {
                             sexo != null &&
                             tipo != null &&
                             usuario != null) {
+                          debugPrint(
+                              "$cedula-$nombre-$apellido-$fechaNacimiento-$sexo-$tipo-$usuario");
                           await _clientes.add({
                             "cedula": cedula,
                             "nombre": nombre,
