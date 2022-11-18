@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:parcial4/newClient.dart';
-import 'package:parcial4/services/catalogos.dart';
-import 'package:parcial4/updateClient.dart';
+import 'package:parcial4/layouts/newClient.dart';
+import 'package:parcial4/layouts/updateClient.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -29,12 +28,7 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     print("Inicio **************************");
-    Catalogos catalogos = new Catalogos();
-    catalogos.getDataAvion();
-    catalogos.getDataDestinos();
-    catalogos.getDataHorarios();
-    catalogos.getDataReservas();
-    catalogos.getDataVuelos();
+  
     return Scaffold(
         appBar: AppBar(
           title: const Center(child: Text('Parcial 4')),
