@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Catalogos {
@@ -10,7 +12,7 @@ class Catalogos {
   final CollectionReference _reservas =
       FirebaseFirestore.instance.collection('reservas');
   final CollectionReference _vuelos =
-      FirebaseFirestore.instance.collection('vuerlos');
+      FirebaseFirestore.instance.collection('vuelos');
 
   // CATALOGOS
   Future<List> getDataAvion() async {
@@ -37,6 +39,16 @@ class Catalogos {
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
     print(allData);
+
+    print(
+        "horarios ls -------------------------- " + allData.length.toString());
+
+    allData.forEach((element) {
+      String jsonString = jsonEncode(element);
+      var json = jsonDecode(jsonString);
+      print(json['id_horario']);
+    });
+
     return allData;
   }
 
@@ -54,7 +66,7 @@ class Catalogos {
     QuerySnapshot querySnapshot = await _vuelos.get();
     // Get data from docs and convert map to List
     final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    print(allData);
+    // print(allData);
     return allData;
   }
 }

@@ -32,9 +32,8 @@ class _Home extends State<Home> {
     catalogos.getDataAvion();
     catalogos.getDataDestinos();
     catalogos.getDataHorarios();
-    catalogos.getDataHorarios();
     catalogos.getDataReservas();
-    catalogos.getDataReservas();
+    catalogos.getDataVuelos();
     return Scaffold(
         appBar: AppBar(
           title: const Center(child: Text('Parcial 4')),
